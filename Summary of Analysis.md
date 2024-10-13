@@ -10,7 +10,7 @@ Of all the studies that used the STRESS guideline, 14 were authored or co-author
 In terms of journal distribution, the dataset revealed that papers were published across various journals, primarily focusing on areas related to the healthcare domain (this is further highlighted and discussed in RQ5 and Fig 4). Notable journals included Healthcare Management Science, BMJ, Health Systems, and Health and Social Care Delivery Research. However, the Journal of Simulation was the most frequently cited journal among the studies that employed the STRESS guideline, with 11 papers published in this journal. Following closely was the Winter Simulation Conference, which featured six papers utilizing STRESS.
 
 
-Research Questions
+## Research Questions
 1. How many references are using STRESS to document their model versus general citation and discussion (how else has STRESS been used).
 
 73 studies claimed to use the STRESS guideline to report their simulation work. This could be further break down to:
