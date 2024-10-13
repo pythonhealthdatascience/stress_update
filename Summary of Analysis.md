@@ -1,4 +1,4 @@
-# The STRESS guidelines: a 1st review and update - summary of analysis (By FA)
+# The STRESS guidelines: a 1st review and update - A summary of analysis
 
  
 ## Overview
