@@ -14,13 +14,14 @@ website:
     logo: "quarto_site/stars_logo_blue.png"
     left:
       - href: quarto_site/index.qmd
-      - text: Draft summary
-        href: quarto_site/summary.md
+      - text: Study summary
+        menu:
+           - quarto_site/research_questions.md
+           - quarto_site/summary.md
       - text: Analysis notebook
         href: quarto_site/analysis.ipynb
 
 format:
   html:
     theme: cosmo
-    css: styles.css
     toc: true
