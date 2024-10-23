@@ -1,3 +1,7 @@
+# quarto site
+_site/
+.quarto
+
 # vscode
 .vscode/
 
