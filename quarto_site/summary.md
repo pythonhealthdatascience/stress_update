@@ -1,4 +1,4 @@
-# The STRESS guidelines: a 1st review and update - A summary of analysis
+# Summary of early findings (draft)
 
  
 ## Overview

@@ -1,0 +1,13 @@
+---
+title: "Open Source License"
+---
+
+This repository is licensed under the MIT License.
+
+::: {.callout-note appearance="minimal" collapse=true}
+
+## View license
+
+{{< include  ../LICENSE >}}
+
+:::

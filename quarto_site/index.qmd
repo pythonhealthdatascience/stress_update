@@ -1,0 +1,61 @@
+---
+authors:
+  - name: Thomas Monks
+    id: tm
+    orcid: 0000-0003-2631-4481
+    email: t.m.w.monks@exeter.ac.uk
+    affiliation: 
+      - name: University of Exeter
+        city: Exeter 
+        state: Devon
+        url: www.exeter.ac.uk
+  - name: Fatemeh Alidoost
+    id: fa
+    orcid: 0009-0000-0252-560X
+    affiliation: 
+      - name: University of Exeter
+        city: Exeter 
+        state: Devon
+        url: www.exeter.ac.uk
+---
+
+## About
+
+This book reports early results in the first update of the Strengthening the Reporting of Empirical Simulation Studies (STRESS) guidelines for Discrete-Event Simulation, Agent Based Simulation and System Dynamics.  **Results should be viewed as draft and subject to change.**
+
+> Monks, T., Currie, C. S. M., Onggo, B. S., Robinson, S., Kunc, M., & Taylor, S. J. E. (2018). *Strengthening the reporting of empirical simulation studies: Introducing the STRESS guidelines*. Journal of Simulation, 13(1), 55–67. <https://doi.org/10.1080/17477778.2018.1442155>
+
+## Project team
+
+<!-- ORCID icon CC 1.0 from https://figshare.com/articles/figure/ORCID_iD_icon_graphics/5008697/4 -->
+
+Conducting the data extraction and analysis
+
+* [Fatemeh Alidoost](https://github.com/Falidoost) [![ORCID icon](ORCIDiD_icon16x16.png)](https://orcid.org/0009-0000-0252-560X)
+
+Project design, analysis and interpretation:
+
+* [Thomas Monks](https://github.com/TomMonks) [![ORCID icon](ORCIDiD_icon16x16.png)](https://orcid.org/0000-0003-2631-4481)
+* [Alison Harper](https://github.com/AliHarp) [![ORCID icon](ORCIDiD_icon16x16.png)](https://orcid.org/0000-0001-5274-5037)
+* [Navonil Mustafee](https://github.com/NavonilNM) [![ORCID icon](ORCIDiD_icon16x16.png)](https://orcid.org/0000-0002-2204-8924)
+* [Simon Taylor](https://www.brunel.ac.uk/people/simon-taylor) [![ORCID icon](ORCIDiD_icon16x16.png)](https://orcid.org/0000-0001-8252-0189)
+
+## Funding
+
+This work was supported by the Medical Research Council [grant number MR/Z503915/1](https://gtr.ukri.org/projects?ref=MR%2FZ503915%2F1)
+    
+## Citation
+
+To add...
+
+## License
+
+This repository is licensed under the MIT License.
+
+::: {.callout-note appearance="minimal" collapse=true}
+
+## View license
+
+{{< include  ../LICENSE >}}
+
+:::

@@ -1,0 +1,26 @@
+project:
+  type: website
+  preview:
+    browser: true
+
+website:
+  title: "The STRESS Guidelines: A first update."
+  # Favicon image for site
+  favicon: "quarto_site/stars_logo_blue.png"
+  # Adds edit and issue buttons to footer
+  repo-url: https://github.com/pythonhealthdatascience/stress_update
+  repo-actions: [edit, issue]
+  navbar:
+    logo: "quarto_site/stars_logo_blue.png"
+    left:
+      - href: quarto_site/index.qmd
+      - text: Draft summary
+        href: quarto_site/summary.md
+      - text: Analysis notebook
+        href: quarto_site/analysis.ipynb
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
