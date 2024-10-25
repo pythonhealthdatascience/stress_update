@@ -99,7 +99,7 @@ The prevalence of the checklist format, particularly in the appendix, suggests t
 ![Authors approach to using STRESS within articles](figures/figure_4.png){#fig-fig4}
 :::
 
-#### 7. Are there any sections of STRESS that caused authors problems?
+### 7. Are there any sections of STRESS that caused authors problems?
 Certain elements of the STRESS guideline, particularly those related to implementation—such as model execution and random sampling—were mentioned less explicitly and less frequently compared to other elements. However, authors did not provide specific reasons for these omissions; many simply neglected to include certain components without justification.
 
 Regarding the objective element, the aims of the experiments were discussed less frequently across the simulation studies. Similarly, the algorithms and model components within the logic elements received limited reporting, indicating a general lack of emphasis on these foundational aspects.
@@ -110,15 +110,16 @@ Finally, the code access element was referenced in 38 studies that employed the 
 
 
 #### 8. How has each section of STRESS been used? Do any need to be clarified or rephrased?
-Refer to answer for question no 7.
 
-#### 9. Are additional sections or modifications to sections needed to improve model reporting (unclear if a review will answer this question.)
+> To be determined by consensus from the STRESS review team.
+
+### 9. Are additional sections or modifications to sections needed to improve model reporting (unclear if a review will answer this question.)
 - One study has mentioned to the need for validation and verification section (Achter et al., 2022).
 - Given the increasing prevalence of hybrid simulations combining various methodologies, there may be a need for dedicated sections addressing the unique reporting requirements for these models. This could include guidelines on integrating different methods and presenting their interactions.
 - Adding/ introducing some papers outlining good practices could improve the use of the guideline, particularly, the sections that are under represented in the reports such as those that mentioned in question no 7. 
 
 
-#### 10. What modifications are needed to document a hybrid model?
+### 10. What modifications are needed to document a hybrid model?
 - The aim/ reason for hybridisation.
 - The specific components and interactions between them.
 - The data exchange method between the models, interaction rules, and synchronisation.

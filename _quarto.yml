@@ -2,6 +2,11 @@ project:
   type: website
   preview:
     browser: true
+  render:
+    - quarto_site/index.qmd
+    - quarto_site/research_questions.md
+    - quarto_site/summary.qmd
+    - quarto_site/analysis.ipynb
 
 website:
   title: "The STRESS Guidelines: A first update."
