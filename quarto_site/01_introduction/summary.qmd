@@ -32,7 +32,7 @@ From the 165 unique studies, subtracting the 73 that claimed to use the guidelin
 ::: {.callout-note collapse="true"}
 ## @fig-fig1 No. Publications using STRESS by year
 
-![No. publications using STRESS by year](figures/figure_1.png){#fig-fig1}
+![No. publications using STRESS by year](../03_results/figures/figure_1.png){#fig-fig1}
 :::
 
 
@@ -44,7 +44,7 @@ Additionally, while the original STRESS guideline did not specifically address r
 ::: {.callout-note collapse="true"}
 ## @fig-fig2 Simulation methods
 
-![Simulation methods](figures/figure_2.png){#fig-fig2}
+![Simulation methods](../03_results/figures/figure_2.png){#fig-fig2}
 :::
 
 
@@ -71,7 +71,7 @@ Some of these studies have adapted the STRESS guideline to better fit the unique
 ::: {.callout-note collapse="true"}
 ## @fig-fig3 Application area
 
-![Application area](figures/figure_3.png){#fig-fig3}
+![Application area](../03_results/figures/figure_3.png){#fig-fig3}
 :::
 
 
@@ -96,7 +96,7 @@ The prevalence of the checklist format, particularly in the appendix, suggests t
 ::: {.callout-note collapse="true"}
 ## @fig-fig4 Authors approach to using STRESS within articles
 
-![Authors approach to using STRESS within articles](figures/figure_4.png){#fig-fig4}
+![Authors approach to using STRESS within articles](../03_results/figures/figure_4.png){#fig-fig4}
 :::
 
 ### 7. Are there any sections of STRESS that caused authors problems?
