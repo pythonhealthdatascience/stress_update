@@ -17,7 +17,7 @@ website:
       - text: Study summary
         menu:
            - quarto_site/research_questions.md
-           - quarto_site/summary.md
+           - quarto_site/summary.qmd
       - text: Analysis notebook
         href: quarto_site/analysis.ipynb
 
