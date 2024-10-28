@@ -1,4 +1,6 @@
-# Research Questions (draft)
+# Research Questions
+
+> **WORK IN PROGRESS**: initial draft of questions. These are subject to change.
 
 1. How many references are using STRESS to document their model versus general citation and discussion (how else has STRESS been used)
 2. What was the uptake of STRESS over time?

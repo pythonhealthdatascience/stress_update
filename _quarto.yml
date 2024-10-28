@@ -6,7 +6,10 @@ project:
     - quarto_site/index.qmd
     - quarto_site/01_introduction/research_questions.md
     - quarto_site/01_introduction/summary.qmd
-    - quarto_site/03_results/analysis.ipynb
+    - quarto_site/03_results/01_cleaning.ipynb
+    - quarto_site/03_results/02_filtering.ipynb
+    - quarto_site/03_results/03_analysis.ipynb
+    - quarto_site/03_results/04_database.ipynb
 
 website:
   title: "The STRESS Guidelines: A first update."
@@ -15,16 +18,34 @@ website:
   # Adds edit and issue buttons to footer
   repo-url: https://github.com/pythonhealthdatascience/stress_update
   repo-actions: [edit, issue]
-  navbar:
+  # navbar:
+  #   logo: "quarto_site/stars_logo_blue.png"
+  #   left:
+  #     - href: quarto_site/index.qmd
+  #     - text: Study summary
+  #       menu:
+  #          - quarto_site/01_introduction/research_questions.md
+  #          - quarto_site/01_introduction/summary.qmd
+  #     - text: Results
+  #       menu:
+  #          - quarto_site/03_results/01_cleaning.ipynb
+  #          - quarto_site/03_results/02_filtering.ipynb
+  #          - quarto_site/03_results/03_analysis.ipynb
+  sidebar:
     logo: "quarto_site/stars_logo_blue.png"
-    left:
-      - href: quarto_site/index.qmd
-      - text: Study summary
-        menu:
-           - quarto_site/01_introduction/research_questions.md
-           - quarto_site/01_introduction/summary.qmd
-      - text: Analysis notebook
-        href: quarto_site/03_results/analysis.ipynb
+    style: "docked"
+    search: true
+    contents:
+      - section: "Introduction"
+        contents:
+          - quarto_site/01_introduction/research_questions.md
+          - quarto_site/01_introduction/summary.qmd
+      - section: "Results"
+        contents:
+           - quarto_site/03_results/01_cleaning.ipynb
+           - quarto_site/03_results/02_filtering.ipynb
+           - quarto_site/03_results/03_analysis.ipynb
+           - quarto_site/03_results/04_database.ipynb
 
 format:
   html:
