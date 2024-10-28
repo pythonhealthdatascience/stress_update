@@ -11,6 +11,8 @@ from typing import Optional
 
 # Constants
 REVIEW_CSV_FILE_PATH = "PY_STRESS.csv"
+APP_FILTER_COLUMN_NAME = "used"
+APP_FILTER_VALUE = "Yes"
 
 def recode_whitespace(df: pd.DataFrame) -> pd.DataFrame:
     '''
@@ -158,3 +160,21 @@ def load_review_dataset(
         )
     )
     return clean
+
+def filter_to_application_studies(clean_df: pd.DataFrame) -> pd.DataFrame:
+    """Filter the cleaned dataset down to studies that used stress to report
+    a simulation study.
+
+    Parameters:
+    ----------
+    clean_df: pd.DataFrame
+        Review dataframe. The main assumption is that this has passed through
+        the main cleaning pipeline
+
+    Returns:
+    -------
+    out: pd.DataFrame
+    """
+    # Used?: a Yes/No variable.
+    filtered_df = clean_df[clean_df[APP_FILTER_COLUMN_NAME] == APP_FILTER_VALUE]
+    return filtered_df
