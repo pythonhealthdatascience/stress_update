@@ -247,28 +247,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>WORK IN PROCESS</strong>: TM has added several queries regarding the review dataset that need to be reviewed before progressing the study.</p>
 </blockquote>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-TM Queries about data
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ul>
-<li><p><strong>TM query (1)</strong>: can we drop column index 27? This is labelled 27 and is all values are null. I’ve removed it in the code below…</p></li>
-<li><p><strong>TM query (2)</strong>: there were three blank lines at the end of the CSV. I’ve removed this in the updated load routine.</p></li>
-<li><p><strong>TM query (3)</strong>: what does DP mean in “used?”</p></li>
-<li><p><strong>TM query (4)</strong>: target authors: is this a manual field you have included? or did you have a formula in Excel? It appears to be different from your calculation at the end?</p></li>
-<li><p><strong>TM query (5)</strong>: To discuss with others -&gt; I have excluded all studies not in English. This is standard practice for a review (basically we would need to translate them if we wanted to include.)</p></li>
-</ul>
-</div>
-</div>
-</div>
 <section id="imports" class="level2">
 <h2 class="anchored" data-anchor-id="imports">1. Imports</h2>
 <div id="98c6c766-9a2c-4cec-b7ea-a96565602226" class="cell" data-execution_count="1">
@@ -349,8 +327,6 @@ TM Queries about data
 <h3 class="anchored" data-anchor-id="main-load-and-clean-function">3.2 Main load and clean function</h3>
 <p>The main function makes use of <code>pandas</code>method chaining functions.</p>
 <div id="3ed04f6a-026d-4528-9a3e-5f3aeda2f3bb" class="cell" data-execution_count="7">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_review_dataset(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    path: Optional[<span class="bu">str</span>] <span class="op">=</span> REVIEW_CSV_FILE_PATH,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> pd.DataFrame:</span>
@@ -363,93 +339,98 @@ TM Queries about data
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    1. drop redunance columns</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">    2. drop rows that contain all NAs</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">    3. drop rows that are no in English</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">    3. rename columns with complex strings</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">    4. strip all punctuation from column headers</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">    5. column headers to lower case</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">    6. replace all whitespace in headers with "_"</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">    7. convert all blank strings in cells to NaN</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">    8. recode variables to be internally consistent in naming</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">    9. perform type conversion for integer fields</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">    10. type conversion for categorical fields</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">    4. rename columns with complex strings</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">    5. strip all punctuation from column headers</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">    6. column headers to lower case</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">    7. replace all whitespace in headers with "_"</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">    8. convert all blank strings in cells to NaN</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">    9. recode variables to be internally consistent in naming</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">    10. Fill NaN's where needed (e.g convert software NaN to "Unknown"</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">    11. perform type conversion for integer fields</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">    12. type conversion for categorical fields</span></span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">    path: str, optional (default=REVIEW_CSV_FILE_PATH)</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">        path or URL for review dataset.</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">    --------</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">    out: pd.DataFrame</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SETUP FOR DATASET CLEAN</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cols to drop from data read in</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    cols_to_remove <span class="op">=</span> [</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Unnamed: 0"</span>,</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"...27"</span>,</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Questions to be asked from authors / experts"</span>,</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Fatemeh's Note"</span>,</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Note"</span>,</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simple type conversions</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    type_conversions <span class="op">=</span> {<span class="st">"year"</span>: <span class="st">"UInt16"</span>}</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># renaming of columns to names suitable for analysis</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    new_labels <span class="op">=</span> {</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>        <span class="st">"1. Objectives (purpose, model outputs, aims of experimentation)"</span>: <span class="st">"stress_objectives"</span>,</span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>        <span class="st">"2. Logic (base model overview diagram, base model logic, scenario logic, algorithms, components)"</span>: <span class="st">"stress_logic"</span>,</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>        <span class="st">"3. Data (data sources, input parameters, preprocessing, assumptions"</span>: <span class="st">"stress_logic"</span>,</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"4. Experimentation (initialisation, run length, estimation approach)"</span>: <span class="st">"stress_exp"</span>,</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">"5. Implementation (software and programming language, random sampling, model execution, system specification)"</span>: <span class="st">"stress_imp"</span>,</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"6. Code access (computer model sharing statement)"</span>: <span class="st">"stress_code"</span>,</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># used to recode variables so they are consistent.</span></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    recoded_variables <span class="op">=</span> {<span class="st">"used"</span>: {<span class="st">"NO"</span>: <span class="st">"No"</span>}}</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># DATA CLEANING PIPELINE</span></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> (</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>        pd.read_csv(path, index_col<span class="op">=</span><span class="st">"No"</span>)</span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop redundant index column</span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>        .drop(labels<span class="op">=</span>cols_to_remove, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop all blank rows (this will remove the blank 3 rows at end of CSV)</span></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>        .dropna(how<span class="op">=</span><span class="st">"all"</span>)</span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop all studies that do not use an English language</span></span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        .pipe(drop_non_english_language)</span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        <span class="co"># rename verbose column headers</span></span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        .rename(columns<span class="op">=</span>new_labels)</span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        <span class="co"># remove any punctutation i.e. "?" and "-"</span></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        .pipe(strip_punctuation)</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># all columns headers to lower case</span></span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>        .pipe(cols_to_lower)</span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>        <span class="co"># replace all whitespace with "_" in col headers</span></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>        .pipe(recode_whitespace)</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>        <span class="co"># replace all whitespace and blank strings in fields with NaN</span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>        .replace(<span class="vs">r"^\s*$"</span>, np.nan, regex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>        <span class="co"># recoded variables e.g. used "NO" becomes "No"</span></span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>        .replace(recoded_variables)</span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>        <span class="co"># update the type of columns to int where needed</span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>        .astype(type_conversions)</span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>        <span class="co"># categorical variables</span></span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>            used<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"used"</span>]),</span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>            type_of_paper<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"type_of_paper"</span>]),</span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>            partially<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"partially"</span>]),</span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>            method<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"method"</span>]),</span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>            software<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"software"</span>]),</span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>            source_code_access<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"source_code_access"</span>]),</span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>            application_area<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"application_area"</span>]),</span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>            target_authors<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"target_authors"</span>]),</span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>            stress_implementation<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"stress_implementation"</span>]),</span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>            hybridisation<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"hybridisation"</span>]),</span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">    path: str, optional (default=REVIEW_CSV_FILE_PATH)</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">        path or URL for review dataset.</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">    --------</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">    out: pd.DataFrame</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SETUP FOR DATASET CLEAN</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cols to drop from data read in</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    cols_to_remove <span class="op">=</span> [</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Unnamed: 0"</span>,</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"...27"</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Questions to be asked from authors / experts"</span>,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Fatemeh's Note"</span>,</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Note"</span>,</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simple type conversions</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    type_conversions <span class="op">=</span> {<span class="st">"year"</span>: <span class="st">"UInt16"</span>}</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># renaming of columns to names suitable for analysis</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    new_labels <span class="op">=</span> {</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>        <span class="st">"1. Objectives (purpose, model outputs, aims of experimentation)"</span>: <span class="st">"stress_objectives"</span>,</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>        <span class="st">"2. Logic (base model overview diagram, base model logic, scenario logic, algorithms, components)"</span>: <span class="st">"stress_logic"</span>,</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"3. Data (data sources, input parameters, preprocessing, assumptions"</span>: <span class="st">"stress_logic"</span>,</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">"4. Experimentation (initialisation, run length, estimation approach)"</span>: <span class="st">"stress_exp"</span>,</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"5. Implementation (software and programming language, random sampling, model execution, system specification)"</span>: <span class="st">"stress_imp"</span>,</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"6. Code access (computer model sharing statement)"</span>: <span class="st">"stress_code"</span>,</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># used to recode variables so they are consistent.</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>    recoded_variables <span class="op">=</span> {<span class="st">"used"</span>: {<span class="st">"NO"</span>: <span class="st">"No"</span>},</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"source_code_access"</span>: {<span class="st">"Will be available in future"</span>: <span class="st">"No"</span>,</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"Cannot be shared due to confidential reason"</span>: <span class="st">"No"</span>}}</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    <span class="co"># DATA CLEANING PIPELINE</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> (</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>        pd.read_csv(path, index_col<span class="op">=</span><span class="st">"No"</span>)</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop redundant index column</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        .drop(labels<span class="op">=</span>cols_to_remove, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop all blank rows (this will remove the blank 3 rows at end of CSV)</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        .dropna(how<span class="op">=</span><span class="st">"all"</span>)</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop all studies that do not use an English language</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        .pipe(drop_non_english_language)</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>        <span class="co"># rename verbose column headers</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>        .rename(columns<span class="op">=</span>new_labels)</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>        <span class="co"># remove any punctutation i.e. "?" and "-"</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>        .pipe(strip_punctuation)</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>        <span class="co"># all columns headers to lower case</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>        .pipe(cols_to_lower)</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>        <span class="co"># replace all whitespace with "_" in col headers</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>        .pipe(recode_whitespace)</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>        <span class="co"># replace all whitespace and blank strings in fields with NaN</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>        .replace(<span class="vs">r"^\s*$"</span>, np.nan, regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>        <span class="co"># recoded variables e.g. used "NO" becomes "No"</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>        .replace(recoded_variables)</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>        <span class="co"># fill NaN's where needed.</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>        .fillna(value<span class="op">=</span>{<span class="st">'software'</span>: <span class="st">"Unknown"</span>, <span class="st">"source_code_access"</span>: <span class="st">"No"</span>,</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>                       <span class="st">'method'</span>: <span class="st">"Unknown"</span>})</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>        <span class="co"># update the type of columns to int where needed</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>        .astype(type_conversions)</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>        <span class="co"># categorical variables</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>            used<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"used"</span>]),</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>            type_of_paper<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"type_of_paper"</span>]),</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>            partially<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"partially"</span>]),</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>            method<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"method"</span>]),</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>            software<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"software"</span>]),</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>            source_code_access<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"source_code_access"</span>]),</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>            application_area<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"application_area"</span>]),</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>            target_authors<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"target_authors"</span>]),</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>            stress_implementation<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"stress_implementation"</span>]),</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>            hybridisation<span class="op">=</span><span class="kw">lambda</span> x: pd.Categorical(x[<span class="st">"hybridisation"</span>]),</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -478,7 +459,7 @@ Data columns (total 25 columns):
  9   used                   161 non-null    category
  10  partially              71 non-null     category
  11  target_authors         73 non-null     category
- 12  method                 73 non-null     category
+ 12  method                 165 non-null    category
  13  hybridisation          7 non-null      category
  14  stress_objectives      70 non-null     object  
  15  stress_logic           70 non-null     object  
@@ -486,13 +467,13 @@ Data columns (total 25 columns):
  17  stress_exp             70 non-null     object  
  18  stress_imp             70 non-null     object  
  19  stress_code            70 non-null     object  
- 20  source_code_access     40 non-null     category
- 21  software               69 non-null     category
+ 20  source_code_access     165 non-null    category
+ 21  software               165 non-null    category
  22  application_area       74 non-null     category
  23  case_study             72 non-null     object  
  24  stress_implementation  70 non-null     category
 dtypes: UInt16(1), category(10), object(14)
-memory usage: 23.9+ KB</code></pre>
+memory usage: 24.0+ KB</code></pre>
 </div>
 </div>
 <div id="da810284-32a8-4c2f-a65e-fb2d5053d7c0" class="cell" data-execution_count="9">
@@ -725,8 +706,8 @@ memory usage: 23.9+ KB</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">method</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>Unknown</td>
+<td>Unknown</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">hybridisation</td>
@@ -765,13 +746,13 @@ memory usage: 23.9+ KB</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">source_code_access</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">software</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>Unknown</td>
+<td>Unknown</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">application_area</td>
