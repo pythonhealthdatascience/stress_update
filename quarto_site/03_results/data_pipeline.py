@@ -57,7 +57,6 @@ def drop_non_english_language(df: pd.DataFrame) -> pd.DataFrame:
     '''
     return df[~df.isin(['Not in English']).any(axis=1)]
 
-#| code-fold: true
 def load_review_dataset(
     path: Optional[str] = REVIEW_CSV_FILE_PATH,
 ) -> pd.DataFrame:
@@ -70,15 +69,16 @@ def load_review_dataset(
     1. drop redunance columns
     2. drop rows that contain all NAs
     3. drop rows that are no in English
-    3. rename columns with complex strings
-    4. strip all punctuation from column headers
-    5. column headers to lower case
-    6. replace all whitespace in headers with "_"
-    7. convert all blank strings in cells to NaN
-    8. recode variables to be internally consistent in naming
-    9. perform type conversion for integer fields
-    10. type conversion for categorical fields
-    
+    4. rename columns with complex strings
+    5. strip all punctuation from column headers
+    6. column headers to lower case
+    7. replace all whitespace in headers with "_"
+    8. convert all blank strings in cells to NaN
+    9. recode variables to be internally consistent in naming
+    10. Fill NaN's where needed (e.g convert software NaN to "Unknown"
+    11. perform type conversion for integer fields
+    12. type conversion for categorical fields
+
 
     Parameters:
     ----------
@@ -116,7 +116,9 @@ def load_review_dataset(
     }
 
     # used to recode variables so they are consistent.
-    recoded_variables = {"used": {"NO": "No"}}
+    recoded_variables = {"used": {"NO": "No"},
+                         "source_code_access": {"Will be available in future": "No",
+                                                "Cannot be shared due to confidential reason": "No"}}
 
     # DATA CLEANING PIPELINE
     clean = (
@@ -139,6 +141,9 @@ def load_review_dataset(
         .replace(r"^\s*$", np.nan, regex=True)
         # recoded variables e.g. used "NO" becomes "No"
         .replace(recoded_variables)
+        # fill NaN's where needed.
+        .fillna(value={'software': "Unknown", "source_code_access": "No",
+                       'method': "Unknown"})
         # update the type of columns to int where needed
         .astype(type_conversions)
         # categorical variables
@@ -148,15 +153,11 @@ def load_review_dataset(
             partially=lambda x: pd.Categorical(x["partially"]),
             method=lambda x: pd.Categorical(x["method"]),
             software=lambda x: pd.Categorical(x["software"]),
-            source_code_access=lambda x: pd.Categorical(
-                x["source_code_access"]
-            ),
+            source_code_access=lambda x: pd.Categorical(x["source_code_access"]),
             application_area=lambda x: pd.Categorical(x["application_area"]),
             target_authors=lambda x: pd.Categorical(x["target_authors"]),
-            stress_implementation=lambda x: pd.Categorical(
-                x["stress_implementation"]
-            ),
-            hybridisation=lambda x: pd.Categorical(x["hybridisation"])
+            stress_implementation=lambda x: pd.Categorical(x["stress_implementation"]),
+            hybridisation=lambda x: pd.Categorical(x["hybridisation"]),
         )
     )
     return clean
