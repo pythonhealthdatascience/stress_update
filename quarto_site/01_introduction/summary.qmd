@@ -4,7 +4,7 @@
  
 ## Overview
 
-Ending in **October 2024**, we identified and reviewed 171 studies that cited the original STRESS guideline in their reference lists using Google Scholar. After removing duplicates and non-English language articles, **165 unique studies** were identified. Of these, **73 (44%) studies explicitly claimed to have used the guideline to report their simulation model**. However, only 45 of these studies applied all elements of the guideline. In the remaining 28 studies, certain elements were either partially applied or omitted. For instance, while most studies reported elements such as "objective" and "logic," many did not fully address "implementation" or "code access," with some only mentioning parts of the implementation process.
+Ending in **August 2024**, we identified and reviewed 171 studies that cited the original STRESS guideline in their reference lists using Google Scholar. After removing duplicates and non-English language articles, **165 unique studies** were identified. Of these, **73 (44%) studies explicitly claimed to have used the guideline to report their simulation model**. However, only 45 of these studies applied all elements of the guideline. In the remaining 28 studies, certain elements were either partially applied or omitted. For instance, while most studies reported elements such as "objective" and "logic," many did not fully address "implementation" or "code access," with some only mentioning parts of the implementation process.
 
 Of all the studies that used the STRESS guideline, 14 (19%) were authored or co-authored by at least one of the original guideline's developers. 
 
@@ -103,14 +103,15 @@ The prevalence of the checklist format, particularly in the appendix, suggests t
 :::
 
 ### 7. Are there any sections of STRESS that caused authors problems?
-Certain elements of the STRESS guideline, particularly those related to implementation—such as model execution and random sampling—were mentioned less explicitly and less frequently compared to other elements. However, authors did not provide specific reasons for these omissions; many simply neglected to include certain components without justification.
+Certain elements of the STRESS guideline, particularly those related to implementation — such as model execution and random sampling — were mentioned less explicitly and less frequently compared to other elements. However, authors did not provide specific reasons for these omissions; many simply neglected to include certain components without justification.
 
 Regarding the objective element, the aims of the experiments were discussed less frequently across the simulation studies. Similarly, the algorithms and model components within the logic elements received limited reporting, indicating a general lack of emphasis on these foundational aspects.
 
 In terms of the data element, while authors predominantly covered data sources and input parameters, assumptions and preprocessing steps were among the most overlooked aspects in simulation reporting. Additionally, the estimation approach outlined in the experimentation elements garnered limited attention from authors.
 
-Finally, the code access element was referenced in 38 studies that employed the STRESS guideline. A further assessment of the papers that provided a code access statement revealed that most authors shared their source code through links to repositories such as GitHub or included it as an appendix (23 papers). Eleven studies indicated that the code would be available upon request, while a few papers mentioned confidentiality reasons for not sharing the model or stated that they would provide it in future publications.
+Finally, the code access element was referenced in 38 studies that employed the STRESS guideline. A further assessment of the papers that provided a code access statement revealed that most authors shared their source code through links to repositories such as GitHub or included it as an appendix (23 or 32% of papers). Eleven studies indicated that the code would be available upon request, while a few papers mentioned confidentiality reasons for not sharing the model or stated that they would provide it in future publications.  
 
+The rate of model code sharing of 32% was **overall** higher than others have found at in DES for health at 8% [Monks and Harper, 2023)](https://www.tandfonline.com/doi/full/10.1080/17477778.2023.2260772) and ABS at 11% [(Jannsen et al, 2020)](https://www.sciencedirect.com/science/article/pii/S1364815220309300). Our sample size is small, but the finding for DES held when we stratified results by method: DES models were shared 34% of the time (n=38, coded model available = 13). 
 
 #### 8. How has each section of STRESS been used? Do any need to be clarified or rephrased?
 
