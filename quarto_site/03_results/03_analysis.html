@@ -229,6 +229,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#usage-by-journalconferenceother" id="toc-usage-by-journalconferenceother" class="nav-link" data-scroll-target="#usage-by-journalconferenceother">Usage by Journal/conference/other</a></li>
   <li><a href="#full-versus-partial-usage-of-stress-sections" id="toc-full-versus-partial-usage-of-stress-sections" class="nav-link" data-scroll-target="#full-versus-partial-usage-of-stress-sections">Full versus partial usage of STRESS sections</a></li>
   <li><a href="#is-the-coded-model-available" id="toc-is-the-coded-model-available" class="nav-link" data-scroll-target="#is-the-coded-model-available">Is the coded model available?</a></li>
+  </ul></li>
+  <li><a href="#model-availability-break-down-by-method" id="toc-model-availability-break-down-by-method" class="nav-link" data-scroll-target="#model-availability-break-down-by-method">Model availability break down by method</a>
+  <ul class="collapse">
   <li><a href="#how-many-of-the-publications-contain-at-least-one-author-from-stress-1.0" id="toc-how-many-of-the-publications-contain-at-least-one-author-from-stress-1.0" class="nav-link" data-scroll-target="#how-many-of-the-publications-contain-at-least-one-author-from-stress-1.0">How many of the publications contain at least one author from STRESS 1.0?</a></li>
   </ul></li>
   </ul>
@@ -781,16 +784,27 @@ Name: count, dtype: int64</code></pre>
 <p><strong>TM query</strong>: There are 3 univrsity of southampton and 2 Lancaster Uni publications. I think we need to double check that we are not double counting with academic journals or conference papers.</p>
 </blockquote>
 <div id="cell-34" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Journal_freq <span class="op">=</span> empirical_studies[<span class="st">"journal"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>Journal_freq <span class="op">=</span> Journal_freq.reset_index()</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>Journal_freq.columns <span class="op">=</span> [<span class="st">"Journal"</span>, <span class="st">"Frequency"</span>]</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>Journal_freq.set_index([<span class="st">"Journal"</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the resulting DataFrame</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>Journal_freq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unique_journal_table(data: pd.DataFrame) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Return a list of unique journals and their frequency</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">    from the pass in dataset. Assumes column called "journal" exists.</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">    1. Calculate frequency per journal</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">    2. reset_index</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">    3. Rename columns</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">    4. Create percentage column</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">    5. set index as "Journal" column</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> (data[<span class="st">"journal"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>            .reset_index()</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>            .rename(columns<span class="op">=</span>{<span class="st">"journal"</span>: <span class="st">"Journal"</span>, <span class="st">"count"</span>: <span class="st">"Count"</span>})</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>            .assign(Percent<span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="st">'Count'</span>] <span class="op">/</span> <span class="bu">len</span>(data) <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>            .set_index([<span class="st">"Journal"</span>])</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-35" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>unique_journal_table(empirical_studies).<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 
 
@@ -798,10 +812,12 @@ Name: count, dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Frequency</th>
+<th data-quarto-table-cell-role="th">Count</th>
+<th data-quarto-table-cell-role="th">Percent</th>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Journal</th>
+<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
@@ -809,158 +825,197 @@ Name: count, dtype: int64</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Journal of Simulation</td>
 <td>11</td>
+<td>15.1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Winter Simulation Conference</td>
 <td>6</td>
+<td>8.2</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">BMJ</td>
 <td>4</td>
+<td>5.5</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">University of Southampton</td>
 <td>3</td>
+<td>4.1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Proceedings of the Operational Research Society Simulation Workshop</td>
 <td>3</td>
+<td>4.1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Operations Research for Health Care</td>
 <td>3</td>
+<td>4.1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">JAMA</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Lancaster University</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Healthcare</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Plos one</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Health Care Management Science</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Health Systems</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Journal of the Operational Research Society</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Istanbul Business Research</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">BMC Health Services Research</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">medRxiv</td>
 <td>2</td>
+<td>2.7</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">International Journal of Nursing Studies</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Health and Social Care Delivery Research</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Plos Medicine</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Anesthesiology</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Frontiers in Oncology</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Value in Health</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Medical Decision Making</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Water</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">cancers</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">arXiv</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Contemporary Clinical Trials</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Computational Management Science</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Journal of Evaluation in Clinical Practice</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Electronics</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Translational Lung Cancer Research</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Cureus</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Frontiers in Neurology</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">OSF</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Stroke</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">NaN</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Norwegian University of Science and Technology</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">National University of Irland</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Computational Management Science</td>
 <td>1</td>
+<td>1.4</td>
 </tr>
 </tbody>
 </table>
@@ -971,18 +1026,26 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="full-versus-partial-usage-of-stress-sections" class="level3">
 <h3 class="anchored" data-anchor-id="full-versus-partial-usage-of-stress-sections">Full versus partial usage of STRESS sections</h3>
-<blockquote class="blockquote">
-<p>TM note - we should provide %’s as well as counts</p>
-</blockquote>
-<div id="cell-36" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Partially_freq <span class="op">=</span> empirical_studies[<span class="st">"partially"</span>].value_counts()</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Partially_freq <span class="op">=</span> Partially_freq.reset_index()</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>Partially_freq.columns <span class="op">=</span> [<span class="st">"Partially?"</span>, <span class="st">"Frequency"</span>]</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the resulting DataFrame</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>Partially_freq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div id="cell-37" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial_use_of_stress(data: pd.DataFrame) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Tabularise the count and percentage of studies that made partial or full</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">    use of STRESS guidelines in their paper.</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> (</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        empirical_studies[<span class="st">"partially"</span>].value_counts()</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        .reset_index()</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        .rename(columns<span class="op">=</span>{<span class="st">"partially"</span>: <span class="st">"Partial"</span>, <span class="st">"count"</span>: <span class="st">"Count"</span>})</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        .assign(Percent<span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="st">'Count'</span>] <span class="op">/</span> <span class="bu">len</span>(data) <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        .set_index([<span class="st">"Partial"</span>])</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Print the resulting DataFrame</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-38" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>partial_use_of_stress(empirical_studies).<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -990,25 +1053,30 @@ Name: count, dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Partially?</th>
-<th data-quarto-table-cell-role="th">Frequency</th>
+<th data-quarto-table-cell-role="th">Count</th>
+<th data-quarto-table-cell-role="th">Percent</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Yes</td>
+<td data-quarto-table-cell-role="th">Yes</td>
 <td>45</td>
+<td>61.6</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>No</td>
+<td data-quarto-table-cell-role="th">No</td>
 <td>25</td>
+<td>34.2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>DP</td>
+<td data-quarto-table-cell-role="th">DP</td>
 <td>0</td>
+<td>0.0</td>
 </tr>
 </tbody>
 </table>
@@ -1019,9 +1087,29 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="is-the-coded-model-available" class="level3">
 <h3 class="anchored" data-anchor-id="is-the-coded-model-available">Is the coded model available?</h3>
-<div id="cell-38" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(empirical_studies[<span class="st">"source_code_access"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<ul>
+<li><strong>TM Note</strong>: The % availability of coded models is higher in papers where authors have used STRESS when compared to the general DES in health papers (8%). Is this due a STRESS effect or because other types of study are included ABS/SD?</li>
+</ul>
+<div id="cell-40" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_coded_model_available(data: pd.DataFrame) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Tabularise if authors have made code available or not or if it available</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">    upon request.</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> (</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        data[<span class="st">"source_code_access"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        .reset_index()</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        .rename(columns<span class="op">=</span>{<span class="st">"source_code_access"</span>: <span class="st">"Model code available"</span>, </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"count"</span>: <span class="st">"Count"</span>})</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        .assign(Percent<span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="st">'Count'</span>] <span class="op">/</span> <span class="bu">len</span>(data) <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>        .set_index([<span class="st">"Model code available"</span>])</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-41" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>is_coded_model_available(empirical_studies).<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
 
@@ -1029,10 +1117,12 @@ Name: count, dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">Count</th>
+<th data-quarto-table-cell-role="th">Percent</th>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">source_code_access</th>
+<th data-quarto-table-cell-role="th">Model code available</th>
+<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
@@ -1040,14 +1130,17 @@ Name: count, dtype: int64</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">No</td>
 <td>39</td>
+<td>53.4</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Yes</td>
 <td>23</td>
+<td>31.5</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Upon request</td>
 <td>11</td>
+<td>15.1</td>
 </tr>
 </tbody>
 </table>
@@ -1056,14 +1149,143 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </section>
+</section>
+<section id="model-availability-break-down-by-method" class="level2">
+<h2 class="anchored" data-anchor-id="model-availability-break-down-by-method">Model availability break down by method</h2>
+<p>This shows that DES model availability percentage was ~34% (13 of 38 models). This is a higher than Monks and Harper (2023) found when they looked at the literature overall ~8%. However, far fewer studies use STRESS than don’t.</p>
+<p>Best to only consider DES and ABS due to sample sizes.</p>
+<div id="cell-43" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> filter_to_used_column(data: pd.DataFrame) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Pipeline helper: returns only the used column from the dataframe'''</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data[<span class="st">'used'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-44" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> total_column_first(data: pd.DataFrame) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Pipeline helper: returns df columns reordered to have overall/total</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">    column appear first'''</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    sorted_columns <span class="op">=</span> [<span class="st">'n'</span>, <span class="st">'Yes'</span>, <span class="st">'No'</span>, <span class="st">'Upon request'</span>, <span class="st">'PercentYes'</span>]</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data[sorted_columns]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-45" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> model_available_by_method(data: pd.DataFrame) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Tabularise if authors have made code available split by simulation</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">    method</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span>    </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> (</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        data.groupby(by<span class="op">=</span>[<span class="st">'source_code_access'</span>, <span class="st">'method'</span>], observed<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>        .count()</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>        .pivot_table(columns<span class="op">=</span>[<span class="st">'method'</span>], index<span class="op">=</span>[<span class="st">'source_code_access'</span>], </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>                    observed<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>        .fillna(value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>        .reset_index()</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>        .set_index(<span class="st">'source_code_access'</span>)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop all columns other than use</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>        .pipe(filter_to_used_column)</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>        .T.assign(n<span class="op">=</span><span class="kw">lambda</span> x: x.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>                  PercentYes<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'Yes'</span>] <span class="op">/</span> x[<span class="st">'n'</span>] <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>        .pipe(total_column_first)</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>        .astype({<span class="st">'n'</span>:<span class="bu">int</span>, <span class="st">'Yes'</span>: <span class="bu">int</span>, <span class="st">'No'</span>: <span class="bu">int</span>, <span class="st">'Upon request'</span>: <span class="bu">int</span>})</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-46" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> model_available_by_method(empirical_studies)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">source_code_access</th>
+<th data-quarto-table-cell-role="th">n</th>
+<th data-quarto-table-cell-role="th">Yes</th>
+<th data-quarto-table-cell-role="th">No</th>
+<th data-quarto-table-cell-role="th">Upon request</th>
+<th data-quarto-table-cell-role="th">PercentYes</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">method</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ABS</td>
+<td>14</td>
+<td>2</td>
+<td>7</td>
+<td>5</td>
+<td>14.3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">DES</td>
+<td>38</td>
+<td>13</td>
+<td>20</td>
+<td>5</td>
+<td>34.2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Hybrid M&amp;S</td>
+<td>7</td>
+<td>2</td>
+<td>4</td>
+<td>1</td>
+<td>28.6</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Micro Simulation</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>50.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Monte Carlo</td>
+<td>6</td>
+<td>2</td>
+<td>4</td>
+<td>0</td>
+<td>33.3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">SD</td>
+<td>5</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>60.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Unknown</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <section id="how-many-of-the-publications-contain-at-least-one-author-from-stress-1.0" class="level3">
 <h3 class="anchored" data-anchor-id="how-many-of-the-publications-contain-at-least-one-author-from-stress-1.0">How many of the publications contain at least one author from STRESS 1.0?</h3>
 <blockquote class="blockquote">
-<p>TM note: As finding target authors was manual we need at least one other person to repeat this process. We can then compare results.</p>
+<p>TM note: As finding target authors was manual we need at least one other person to repeat this process. We can then compare results. TM note: FA wrote some code to create this column. Need to revisit.</p>
 </blockquote>
-<div id="cell-40" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(empirical_studies[<span class="st">'target_authors'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div id="cell-48" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(empirical_studies[<span class="st">'target_authors'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
 <div>
 
 
