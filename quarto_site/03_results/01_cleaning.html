@@ -198,6 +198,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Database of application studies</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../quarto_site/03_results/05_recoding_subsections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STRESS-DES studies</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -379,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    new_labels <span class="op">=</span> {</span>
 <span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>        <span class="st">"1. Objectives (purpose, model outputs, aims of experimentation)"</span>: <span class="st">"stress_objectives"</span>,</span>
 <span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>        <span class="st">"2. Logic (base model overview diagram, base model logic, scenario logic, algorithms, components)"</span>: <span class="st">"stress_logic"</span>,</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"3. Data (data sources, input parameters, preprocessing, assumptions"</span>: <span class="st">"stress_logic"</span>,</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"3. Data (data sources, input parameters, preprocessing, assumptions"</span>: <span class="st">"stress_data"</span>,</span>
 <span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">"4. Experimentation (initialisation, run length, estimation approach)"</span>: <span class="st">"stress_exp"</span>,</span>
 <span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"5. Implementation (software and programming language, random sampling, model execution, system specification)"</span>: <span class="st">"stress_imp"</span>,</span>
 <span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"6. Code access (computer model sharing statement)"</span>: <span class="st">"stress_code"</span>,</span>
@@ -463,7 +469,7 @@ Data columns (total 25 columns):
  13  hybridisation          7 non-null      category
  14  stress_objectives      70 non-null     object  
  15  stress_logic           70 non-null     object  
- 16  stress_logic           70 non-null     object  
+ 16  stress_assumptions     70 non-null     object  
  17  stress_exp             70 non-null     object  
  18  stress_imp             70 non-null     object  
  19  stress_code            70 non-null     object  
@@ -579,7 +585,7 @@ memory usage: 24.0+ KB</code></pre>
 <td>Yes</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">stress_logic</td>
+<td data-quarto-table-cell-role="th">stress_assumptions</td>
 <td>Yes</td>
 <td>Yes</td>
 </tr>
@@ -725,7 +731,7 @@ memory usage: 24.0+ KB</code></pre>
 <td>NaN</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">stress_logic</td>
+<td data-quarto-table-cell-role="th">stress_assumptions</td>
 <td>NaN</td>
 <td>NaN</td>
 </tr>
