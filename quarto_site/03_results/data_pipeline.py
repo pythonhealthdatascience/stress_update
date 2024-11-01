@@ -109,7 +109,7 @@ def load_review_dataset(
     new_labels = {
         "1. Objectives (purpose, model outputs, aims of experimentation)": "stress_objectives",
         "2. Logic (base model overview diagram, base model logic, scenario logic, algorithms, components)": "stress_logic",
-        "3. Data (data sources, input parameters, preprocessing, assumptions": "stress_logic",
+        "3. Data (data sources, input parameters, preprocessing, assumptions": "stress_data",
         "4. Experimentation (initialisation, run length, estimation approach)": "stress_exp",
         "5. Implementation (software and programming language, random sampling, model execution, system specification)": "stress_imp",
         "6. Code access (computer model sharing statement)": "stress_code",

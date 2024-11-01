@@ -49,7 +49,7 @@ Additionally, while the original STRESS guideline did not specifically address r
 :::
 
 
-### 4. Has STRESS been used to document any hybrid simulation models? If so how has it been used (e.g. multiple checklists); have modifications been introduced have alterantive guidelines been used?
+### 4. Has STRESS been used to document any hybrid simulation models? If so how has it been used (e.g. multiple checklists); have modifications been introduced have alternative guidelines been used?
 
 Yes, STRESS has been utilized to document hybrid simulation models, as evidenced by the seven studies that employed hybrid simulation approaches while referencing the guideline.
 

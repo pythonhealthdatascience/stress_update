@@ -10,7 +10,7 @@ project:
     - quarto_site/03_results/02_filtering.ipynb
     - quarto_site/03_results/03_analysis.ipynb
     - quarto_site/03_results/04_database.ipynb
-
+    - quarto_site/03_results/05_recoding_subsections.ipynb
 website:
   title: "The STRESS Guidelines: A first update."
   # Favicon image for site
@@ -46,6 +46,7 @@ website:
            - quarto_site/03_results/02_filtering.ipynb
            - quarto_site/03_results/03_analysis.ipynb
            - quarto_site/03_results/04_database.ipynb
+           - quarto_site/03_results/05_recoding_subsections.ipynb
 
 format:
   html:
